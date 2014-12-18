@@ -13,9 +13,14 @@ func TestGetUser(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
-	t.Logf("%d", len(u.SolvedList))
 	// Too many log
 	u.SolvedList = make([]goaoj.Problem, 0)
-	t.Logf("%+v", u)
-	t.Logf("%+v", u.Status)
+	t.Logf("User: %+v", u)
+	t.Logf("User status: %+v", u.Status)
+
+	u, err = api.GetUser("InvalidUserNameあ")
+	if err == nil {
+		t.Logf("%+v", u)
+		t.Error("Should return error when user does not exists. But not return error.")
+	}
 }

@@ -1,6 +1,10 @@
 package goaoj
 
-import "net/url"
+import (
+	"errors"
+	"fmt"
+	"net/url"
+)
 
 type User struct {
 	ID             string    `xml:"id"`
@@ -41,6 +45,9 @@ func (a *API) GetUser(id string) (*User, error) {
 	err := a.apiGet(BaseURL+"/user", v, u)
 	if err != nil {
 		return nil, err
+	}
+	if u.Status == nil {
+		return nil, errors.New(fmt.Sprintf("%s does not exists.", id))
 	}
 
 	return u, nil
