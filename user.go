@@ -1,7 +1,6 @@
 package goaoj
 
 import (
-	"errors"
 	"fmt"
 	"net/url"
 )
@@ -47,7 +46,7 @@ func (a *API) GetUser(id string) (*User, error) {
 		return nil, err
 	}
 	if u.Status == nil {
-		return nil, errors.New(fmt.Sprintf("%s does not exists.", id))
+		return nil, fmt.Errorf("%s does not exists", id)
 	}
 
 	return u, nil
