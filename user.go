@@ -5,6 +5,10 @@ import (
 	"net/url"
 )
 
+type respObj interface {
+	getError() error
+}
+
 type User struct {
 	ID             string    `xml:"id"`
 	Name           string    `xml:"name"`
@@ -13,6 +17,8 @@ type User struct {
 	Status         *Status   `xml:"status"`
 	SolvedList     []Problem `xml:"solved_list>problem"`
 }
+
+var _ respObj = &User{}
 
 type Status struct {
 	Submission   int `xml:"submission"`
@@ -36,6 +42,14 @@ type Problem struct {
 	CodeSize       int    `xml:"code_size"`
 }
 
+func (u *User) getError() error {
+	if u.ID == "" {
+		// TODO: return ewAPIError("Invalid ID")
+		return fmt.Errorf("Invalid ID")
+	}
+	return nil
+}
+
 func (a *API) GetUser(id string) (*User, error) {
 	v := url.Values{}
 	v.Add("id", id)
@@ -44,9 +58,6 @@ func (a *API) GetUser(id string) (*User, error) {
 	err := a.apiGet(BaseURL+"/user", v, u)
 	if err != nil {
 		return nil, err
-	}
-	if u.Status == nil {
-		return nil, fmt.Errorf("%s does not exists", id)
 	}
 
 	return u, nil
