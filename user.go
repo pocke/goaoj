@@ -5,10 +5,6 @@ import (
 	"net/url"
 )
 
-type respObj interface {
-	getError() error
-}
-
 type User struct {
 	ID             string        `xml:"id"`
 	Name           string        `xml:"name"`

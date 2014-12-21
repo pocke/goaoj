@@ -10,6 +10,10 @@ const (
 	BaseURL = "http://judge.u-aizu.ac.jp/onlinejudge/webservice"
 )
 
+type respObj interface {
+	getError() error
+}
+
 type API struct {
 	HTTPClient *http.Client
 }
