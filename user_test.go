@@ -14,7 +14,7 @@ func TestGetUser(t *testing.T) {
 		t.Error(err)
 	}
 	// Too many log
-	u.SolvedList = make([]goaoj.Problem, 0)
+	u.SolvedList = make([]goaoj.UserProblem, 0)
 	t.Logf("User: %+v", u)
 	t.Logf("User status: %+v", u.Status)
 

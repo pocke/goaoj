@@ -10,17 +10,17 @@ type respObj interface {
 }
 
 type User struct {
-	ID             string    `xml:"id"`
-	Name           string    `xml:"name"`
-	RegisterDate   int       `xml:"registerdate"`
-	LastSubmitDate int       `xml:"lastsubmitdate"`
-	Status         *Status   `xml:"status"`
-	SolvedList     []Problem `xml:"solved_list>problem"`
+	ID             string        `xml:"id"`
+	Name           string        `xml:"name"`
+	RegisterDate   int           `xml:"registerdate"`
+	LastSubmitDate int           `xml:"lastsubmitdate"`
+	Status         *UserStatus   `xml:"status"`
+	SolvedList     []UserProblem `xml:"solved_list>problem"`
 }
 
 var _ respObj = &User{}
 
-type Status struct {
+type UserStatus struct {
 	Submission   int `xml:"submission"`
 	Solved       int `xml:"solved"`
 	Accepted     int `xml:"accepted"`
@@ -32,7 +32,7 @@ type Status struct {
 	CompileError int `xml:"compileerror"`
 }
 
-type Problem struct {
+type UserProblem struct {
 	judgeID        int    `xml:"judge_id"`
 	ID             int    `xml:"id"`
 	SubmissionDate int    `xml:"submissiondate"`
