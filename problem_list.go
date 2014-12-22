@@ -9,6 +9,8 @@ type problemList struct {
 	List []Problem `xml:"problem"`
 }
 
+var _ respObj = &problemList{}
+
 func (pl *problemList) getError() error {
 	if len(pl.List) == 0 {
 		return fmt.Errorf("Invalid volume")
